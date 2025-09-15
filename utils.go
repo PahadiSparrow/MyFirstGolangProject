@@ -10,10 +10,11 @@ import (
 var jwtSecret = []byte("PahadiBro") // Change this
 
 // Generate JWT Token
-func GenerateJWT(email string) (string, error) {
+func GenerateJWT(userID int, email string) (string, error) {
 	token := jwt.New(jwt.SigningMethodHS256)
 	claims := token.Claims.(jwt.MapClaims)
 
+	claims["user_id"] = userID // Add user ID here
 	claims["email"] = email
 	claims["exp"] = time.Now().Add(time.Hour * 72).Unix() // Token valid for 72 hours
 

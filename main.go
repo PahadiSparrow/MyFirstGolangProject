@@ -18,6 +18,12 @@ func main() {
 	e.POST("/register", RegisterUser)
 	e.POST("/login", LoginUser)
 
+	// Protected Routes
+	e.POST("/subscribe", SubscribeCourse, JwtMiddleware)
+
+	// Example: GET /course/2/users
+	e.GET("/course/:course_id/users", GetUsersByCourse)
+
 	// Start server
 	log.Println("Starting server on :8080")
 	e.Logger.Fatal(e.Start(":8080"))
